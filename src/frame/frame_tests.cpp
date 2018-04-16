@@ -26,9 +26,9 @@ Process* create_process() {
 TEST(Frame, SetPage_PageNumber) {
   Frame frame;
 
-  frame.set_page(create_process(), 42);
+  frame.set_page(create_process(), 1);
 
-  ASSERT_EQ(42, frame.page_number);
+  ASSERT_EQ(1, frame.page_number);
 }
 
 
@@ -36,7 +36,7 @@ TEST(Frame, SetPage_Process) {
   Frame frame;
   Process* process = create_process();
 
-  frame.set_page(process, 42);
+  frame.set_page(process, 1);
 
   ASSERT_EQ(process, frame.process);
 }
