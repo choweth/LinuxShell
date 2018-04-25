@@ -48,7 +48,7 @@ bool parse_flags(int argc, char** argv, FlagOptions& flags) {
 
   // Parse flags entered by the user.
   while (true) {
-    flag_char = getopt_long(argc, argv, "-svfh:", flag_options, &option_index);
+    flag_char = getopt_long(argc, argv, "-vs:f:h", flag_options, &option_index);
      
     // Detect the end of the options.
     if (flag_char == -1) {
