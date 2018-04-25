@@ -6,6 +6,9 @@
 
 #include "flag_parser/flag_parser.h"
 #include <iostream>
+#include <getopt.h>
+#include <string.h>
+#include <stdexcept>
 
 using namespace std;
 
@@ -29,8 +32,93 @@ void print_usage() {
       "\n";
 }
 
-
 bool parse_flags(int argc, char** argv, FlagOptions& flags) {
-  // TODO: implement me
-  return false;
+
+  // Command-line flags accepted by this program.
+  static struct option flag_options[] = {
+    {"strategy",   required_argument, 0, 's'},
+    {"verbose",    no_argument,       0, 'v'},
+    {"max-frames", required_argument, 0, 'f'},
+    {"help",       no_argument,       0, 'h'},
+    {0, 0, 0, 0}
+  };
+
+  int option_index;
+  char flag_char;
+
+  // Parse flags entered by the user.
+  while (true) {
+    flag_char = getopt_long(argc, argv, "-svfh:", flag_options, &option_index);
+     
+    // Detect the end of the options.
+    if (flag_char == -1) {
+      break;
+    }
+
+    switch (flag_char) {
+      case 's':
+        if(optarg == NULL) {print_usage(); return false;} 
+	// string option(optarg);
+	if (strcmp(optarg,"FIFO") == 0) {
+          flags.strategy = ReplacementStrategy::FIFO;
+        } else if (strcmp(optarg,"LRU") == 0) {
+          flags.strategy = ReplacementStrategy::LRU;
+        } else {
+          print_usage();
+          return false;
+        }
+        break;
+
+      case 'v':
+        flags.verbose = true;
+        break;
+
+      case 'f':
+        if(optarg == NULL){print_usage(); return false;}
+	try{ 
+	  flags.max_frames = stoi(optarg);
+	  if(!(flags.max_frames > 0)) {print_usage();return false;}
+	} catch(const std::invalid_argument& ia){
+	  print_usage();
+	  return false;
+	}
+        break;
+
+      case 'h':
+        print_usage();
+        return true;
+        break;
+
+      case 1:
+        flags.filename = optarg;
+        break;
+
+      default:
+        print_usage();
+        return false; 
+    }
+  }
+  if(flags.filename == "") {print_usage(); return false;}
+  return true;
 }
+
+ReplacementStrategy instantiate_strategy() {
+  ReplacementStrategy strat;
+  string option(optarg);
+
+  if (option == "FIFO") {
+    strat = ReplacementStrategy::FIFO;
+  } else if (option == "LRU") {
+    strat = ReplacementStrategy::LRU;
+  } else {
+    print_usage();
+    //return false;
+  }
+
+  return strat;
+}
+    
+// bool parse_flags(int argc, char** argv, FlagOptions& flags) {
+  // TODO: implement me
+  // return false;
+// }

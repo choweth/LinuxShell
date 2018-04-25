@@ -5,14 +5,24 @@
  */
 
 #include <cstdlib>
+#include "simulation/simulation.h"
+#include "flag_parser/flag_parser.h"
 
 using namespace std;
-
 
 /**
  * The main entry point to the simulation.
  */
 int main(int argc, char** argv) {
-  // TODO: implement me
+  FlagOptions flags;
+  if(!parse_flags(argc, argv, flags)) return EXIT_FAILURE;
+  // Logger logger(flags.verbose, flags.detailed);
+
+  // Create the simulation.
+  Simulation simulation;
+
+  // Execute the simulation on the provided file.
+  simulation.run(flags.filename);
+
   return EXIT_SUCCESS;
 }

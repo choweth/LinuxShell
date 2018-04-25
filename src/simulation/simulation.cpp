@@ -6,12 +6,14 @@
  */
 
 #include "simulation/simulation.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
 
-void Simulation::run() {
-  // TODO: implement me
+void Simulation::run(const std::string& filename) {
+  cout << filename << endl;
 }
 
 

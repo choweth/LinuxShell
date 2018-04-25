@@ -8,8 +8,9 @@
 #pragma once
 #include "process/process.h"
 #include "virtual_address/virtual_address.h"
+#include "simulation/simulation.h"
 #include <cstdlib>
-
+#include <string>
 
 /**
  * Class responsible for running the memory simulation.
@@ -17,7 +18,6 @@
 class Simulation {
 // PUBLIC CONSTANTS
 public:
-
   /**
    * The maximum number of frames in the simulated system (512).
    */
@@ -25,11 +25,11 @@ public:
 
 // PUBLIC API METHODS
 public:
-
+  
   /**
    * Runs the simulation.
    */
-  void run();
+  void run(const std::string& filename);
 
 // PRIVATE METHODS
 private:
