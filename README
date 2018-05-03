@@ -1,0 +1,8 @@
+Name: Clayton Howeth
+List of Files: All files came from Josh's starting code - I just implemented the functions.
+Interesting/Unusual Features: None
+Approximate Hours: 15 Hours
+
+Belady's Anomaly:
+  Belady's anomaly is when increasing the number of page frames results in an increase in page fault occurances. I believe this occurs because the FIFO queue doesn't monitor the numbers it contains compared to the numbers coming in. 
+I did not manage to get to implementing Belady's Anomaly handling. Sorry.

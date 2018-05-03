@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 
   // Create the simulation.
   Simulation simulation;
-
+  simulation.flags = flags;
   // Execute the simulation on the provided file.
   simulation.run(flags.filename);
 
