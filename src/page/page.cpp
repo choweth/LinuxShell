@@ -5,6 +5,9 @@
  */
 
 #include "page/page.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -14,24 +17,34 @@ const size_t Page::PAGE_SIZE;
 
 
 Page* Page::read_from_input(std::istream& in) {
-  // TODO: implement me
-  return nullptr;
+  vector<char> v;
+  if(in){
+    char c;
+    size_t x = 0;
+    while(x < PAGE_SIZE){
+      if(in.get(c)){
+	v.push_back(c);
+      }
+      x++;
+    }
+    if(v.empty()) return NULL;
+    Page* p = new Page(v);
+    return p;
+  }
+  return NULL;
 }
 
 
 size_t Page::size() const {
-  // TODO: implement me
-  return 0;
+  return bytes.size();
 }
 
 
 bool Page::is_valid_offset(size_t offset) const {
-  // TODO: implement me
-  return false;
+  return (offset < bytes.size() && bytes[offset]);
 }
 
 
 char Page::get_byte_at_offset(size_t offset) {
-  // TODO: implement me
-  return 0;
+  return bytes[offset];
 }
